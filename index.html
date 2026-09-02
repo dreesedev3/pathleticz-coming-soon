@@ -459,7 +459,7 @@
                     <input type="email" placeholder="Email address" required id="emailInput-parents">
                     <input type="tel" placeholder="Phone number" id="phoneInput-parents">
                     <div class="captcha-container">
-                        <div id="captcha-parents"></div>
+                        <div class="g-recaptcha" id="captcha-parents" data-sitekey="6LfMZqQtAAAAAPiaeaXSvZ8K2QV3pnZI7pldqFfS" data-callback="onCaptchaSuccessParents" data-theme="dark"></div>
                     </div>
                     <button type="submit">Notify Me</button>
                 </form>
@@ -476,7 +476,7 @@
                     <input type="email" placeholder="Email address" required id="emailInput-schools">
                     <input type="tel" placeholder="Phone number" id="phoneInput-schools">
                     <div class="captcha-container">
-                        <div id="captcha-schools"></div>
+                        <div class="g-recaptcha" id="captcha-schools" data-sitekey="6LfMZqQtAAAAAPiaeaXSvZ8K2QV3pnZI7pldqFfS" data-callback="onCaptchaSuccessSchools" data-theme="dark"></div>
                     </div>
                     <button type="submit">Notify Me</button>
                 </form>
@@ -493,7 +493,7 @@
                     <input type="email" placeholder="Email address" required id="emailInput-sponsors">
                     <input type="tel" placeholder="Phone number" id="phoneInput-sponsors">
                     <div class="captcha-container">
-                        <div id="captcha-sponsors"></div>
+                        <div class="g-recaptcha" id="captcha-sponsors" data-sitekey="6LfMZqQtAAAAAPiaeaXSvZ8K2QV3pnZI7pldqFfS" data-callback="onCaptchaSuccessSponsors" data-theme="dark"></div>
                     </div>
                     <button type="submit">Notify Me</button>
                 </form>
@@ -573,17 +573,15 @@
         // no country selector on this simple form. If international signups
         // are expected, this needs a real country picker instead of a fixed
         // value.
-        const RECAPTCHA_SITEKEY = '6LfMZqQtAAAAAPiaeaXSvZ8K2QV3pnZI7pldqFfS';
-        const captchaWidgetIds = {};
+        const captchaTokens = { parents: null, schools: null, sponsors: null };
 
-        function onRecaptchaLoad() {
-            ['parents', 'schools', 'sponsors'].forEach(function (list) {
-                captchaWidgetIds[list] = grecaptcha.enterprise.render(`captcha-${list}`, {
-                    sitekey: RECAPTCHA_SITEKEY,
-                    theme: 'dark'
-                });
-            });
-        }
+        // Google calls these directly with the solved token as soon as each
+        // checkbox is completed — this mirrors Brevo's own original callback
+        // pattern exactly, just storing the token instead of dispatching an
+        // internal event, since we're not using their form-handling JS.
+        function onCaptchaSuccessParents(token) { captchaTokens.parents = token; }
+        function onCaptchaSuccessSchools(token) { captchaTokens.schools = token; }
+        function onCaptchaSuccessSponsors(token) { captchaTokens.sponsors = token; }
 
         function setupForm(list) {
             const form = document.getElementById(`signupForm-${list}`);
@@ -595,10 +593,7 @@
                 const email = document.getElementById(`emailInput-${list}`).value;
                 const phoneDigits = document.getElementById(`phoneInput-${list}`).value.replace(/\D/g, '');
 
-                const widgetId = captchaWidgetIds[list];
-                const captchaToken = (typeof grecaptcha !== 'undefined' && widgetId !== undefined)
-                    ? grecaptcha.enterprise.getResponse(widgetId)
-                    : '';
+                const captchaToken = captchaTokens[list];
 
                 if (!captchaToken) {
                     alert('Please check the captcha box before submitting.');
@@ -629,7 +624,7 @@
         setupForm('schools');
         setupForm('sponsors');
     </script>
-    <script src="https://www.google.com/recaptcha/enterprise.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=en" async defer></script>
 
 </body>
 </html>
