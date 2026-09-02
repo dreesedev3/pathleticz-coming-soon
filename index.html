@@ -578,7 +578,7 @@
 
         function onRecaptchaLoad() {
             ['parents', 'schools', 'sponsors'].forEach(function (list) {
-                captchaWidgetIds[list] = grecaptcha.render(`captcha-${list}`, {
+                captchaWidgetIds[list] = grecaptcha.enterprise.render(`captcha-${list}`, {
                     sitekey: RECAPTCHA_SITEKEY,
                     theme: 'dark'
                 });
@@ -597,7 +597,7 @@
 
                 const widgetId = captchaWidgetIds[list];
                 const captchaToken = (typeof grecaptcha !== 'undefined' && widgetId !== undefined)
-                    ? grecaptcha.getResponse(widgetId)
+                    ? grecaptcha.enterprise.getResponse(widgetId)
                     : '';
 
                 if (!captchaToken) {
@@ -629,7 +629,7 @@
         setupForm('schools');
         setupForm('sponsors');
     </script>
-    <script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
+    <script src="https://www.google.com/recaptcha/enterprise.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
 
 </body>
 </html>
