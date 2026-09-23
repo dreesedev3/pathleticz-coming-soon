@@ -23,6 +23,129 @@
             box-sizing: border-box;
         }
 
+        /* ===== Site navigation (shared across all pages) ===== */
+        .site-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 14, 23, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(52, 157, 255, 0.15);
+        }
+
+        .nav-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .nav-brand {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--light-blue);
+        }
+
+        .nav-links a.nav-donate {
+            background: linear-gradient(135deg, var(--dark-blue), var(--light-blue));
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 4px;
+        }
+
+        .nav-links a.nav-donate:hover {
+            color: #fff;
+            opacity: 0.9;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 5px;
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--text-primary);
+            border-radius: 2px;
+        }
+
+        @media (max-width: 700px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0;
+                background: #0A0E17;
+                border-bottom: 1px solid rgba(52, 157, 255, 0.15);
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                width: 100%;
+                padding: 1rem 1.5rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links a.nav-donate {
+                margin: 1rem 1.5rem;
+                text-align: center;
+                width: auto;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+        }
+        /* ===== End site navigation ===== */
+
         body {
             min-height: 100vh;
             background: var(--bg-dark);
@@ -34,6 +157,7 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            padding-top: 68px;
         }
 
         /* Background: layered gradient mesh */
@@ -58,10 +182,10 @@
             animation: streak-move 10s linear infinite;
         }
 
-        .streak:nth-child(2) { top: 20%; width: 300px; background: linear-gradient(90deg, transparent, rgba(52, 157, 255, 0.08), transparent); animation-delay: 0s; }
-        .streak:nth-child(3) { top: 40%; width: 450px; background: linear-gradient(90deg, transparent, rgba(52, 157, 255, 0.06), transparent); animation-delay: 3s; }
-        .streak:nth-child(4) { top: 65%; width: 350px; background: linear-gradient(90deg, transparent, rgba(52, 157, 255, 0.1), transparent); animation-delay: 6s; }
-        .streak:nth-child(5) { top: 85%; width: 500px; background: linear-gradient(90deg, transparent, rgba(29, 53, 87, 0.15), transparent); animation-delay: 1.5s; }
+        .streak.s1 { top: 20%; width: 300px; background: linear-gradient(90deg, transparent, rgba(52, 157, 255, 0.08), transparent); animation-delay: 0s; }
+        .streak.s2 { top: 40%; width: 450px; background: linear-gradient(90deg, transparent, rgba(52, 157, 255, 0.06), transparent); animation-delay: 3s; }
+        .streak.s3 { top: 65%; width: 350px; background: linear-gradient(90deg, transparent, rgba(52, 157, 255, 0.1), transparent); animation-delay: 6s; }
+        .streak.s4 { top: 85%; width: 500px; background: linear-gradient(90deg, transparent, rgba(29, 53, 87, 0.15), transparent); animation-delay: 1.5s; }
 
         @keyframes streak-move {
             0% { left: -500px; opacity: 0; transform: rotate(-3deg); }
@@ -78,7 +202,7 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
-            max-width: 800px;
+            max-width: 1100px;
             width: 100%;
         }
 
@@ -86,13 +210,11 @@
         .logo-wrapper {
             margin-bottom: 0.8rem;
             width: 100%;
-            max-width: 620px;
+            max-width: 540px;
+            padding: 1.5rem 0;
             animation: logo-in 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
             transform: translateY(30px);
-            background: radial-gradient(ellipse 110% 90% at 50% 50%, rgba(52, 157, 255, 0.08) 0%, rgba(255, 255, 255, 0.04) 40%, transparent 70%);
-            padding: 2.25rem 2.75rem;
-            border-radius: 16px;
         }
 
         @keyframes logo-in {
@@ -102,7 +224,6 @@
         .logo-wrapper img {
             width: 100%;
             height: auto;
-            filter: drop-shadow(0 0 40px rgba(52, 157, 255, 0.35)) drop-shadow(0 0 80px rgba(52, 157, 255, 0.2)) drop-shadow(0 0 150px rgba(52, 157, 255, 0.1));
         }
 
         /* COMING SOON - big and bold */
@@ -419,24 +540,142 @@
                 font-size: 1rem;
             }
         }
+
+        /* ===== Promo video (two columns) ===== */
+        .video-section {
+            width: 100%; max-width: 1000px; margin: 3rem 0 3.5rem;
+            display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: center; text-align: left;
+        }
+        .video-frame {
+            position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden;
+            border: 1px solid rgba(52, 157, 255, 0.25); box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+        .video-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+        .video-eyebrow {
+            font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.85rem;
+            letter-spacing: 0.15em; text-transform: uppercase; color: var(--light-blue); margin-bottom: 0.6rem;
+        }
+        .video-title {
+            font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase;
+            font-size: 2.2rem; line-height: 1; margin-bottom: 1rem;
+        }
+        .video-text p { color: rgba(255, 255, 255, 0.75); line-height: 1.7; margin-bottom: 1.2rem; }
+        .video-links { display: flex; flex-direction: column; gap: 0.6rem; }
+        .video-link {
+            font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: 0.08em;
+            text-transform: uppercase; font-size: 0.9rem; color: var(--light-blue); text-decoration: none;
+        }
+        .video-link:hover { text-decoration: underline; }
+        @media (max-width: 800px) {
+            .video-section { grid-template-columns: 1fr; gap: 1.5rem; }
+        }
+
+        /* ===== Site footer (shared across all pages) ===== */
+        .site-footer {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            align-self: stretch;
+            margin-top: 4rem;
+            border-top: 1px solid rgba(52, 157, 255, 0.15);
+            background: rgba(10, 14, 23, 0.6);
+            text-align: left;
+        }
+        .footer-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 3rem 2rem 2rem;
+            display: grid;
+            grid-template-columns: 2fr 1.3fr 1fr;
+            gap: 2.5rem;
+        }
+        .footer-col { display: flex; flex-direction: column; gap: 0.6rem; }
+        .footer-logo {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+        }
+        .footer-brand p { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+        .footer-heading {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--light-blue);
+            margin-bottom: 0.3rem;
+        }
+        .footer-col a, .footer-col span {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+        .footer-col a:hover { color: var(--light-blue); }
+        .footer-social { display: flex; gap: 1rem; margin-top: 0.4rem; }
+        .footer-social a { color: rgba(255, 255, 255, 0.5); display: flex; }
+        .footer-social svg { width: 20px; height: 20px; fill: currentColor; }
+        .footer-bottom {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.78rem;
+            color: rgba(255, 255, 255, 0.35);
+            letter-spacing: 0.03em;
+        }
+        @media (max-width: 700px) {
+            .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+        }
+
+        .nav-brand { display: flex; align-items: center; }
+        .nav-logo { height: 34px; width: auto; display: block; }
+        .footer-logo img { height: 44px; width: auto; display: block; }
     </style>
 </head>
 <body>
 
+    <nav class="site-nav">
+        <div class="nav-inner">
+            <a href="index.html" class="nav-brand"><img src="white-long-logo.png" alt="Pathleticz" class="nav-logo"></a>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">Home</a>
+                <a href="about.html">About</a>
+                <a href="donate.html" class="nav-donate">Donate</a>
+            </div>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
     <div class="bg-layer"></div>
-    <div class="streak"></div>
-    <div class="streak"></div>
-    <div class="streak"></div>
-    <div class="streak"></div>
+    <div class="streak s1"></div>
+    <div class="streak s2"></div>
+    <div class="streak s3"></div>
+    <div class="streak s4"></div>
 
     <div class="container">
         <div class="logo-wrapper">
-            <img src="PZ Long Logo Transparent.png" alt="Pathleticz Logo">
+            <img src="white-long-logo.png" alt="Pathleticz Logo">
         </div>
 
         <p class="tagline">
             Your path into the sports industry starts here.
         </p>
+
+        <section class="video-section" id="videoSection" data-video-id="-bXmKmdJYLk">
+            <div class="video-frame" id="videoFrame"></div>
+            <div class="video-text">
+                <h2 class="video-title">More than the game.</h2>
+                <p>Students work in teams as real sports industry departments, build a career portfolio, and learn from the professionals who do these jobs every day.</p>
+                <div class="video-links">
+                    <a href="about.html" class="video-link">About Pathleticz &rarr;</a>
+                    <a href="donate.html" class="video-link">Support our students &rarr;</a>
+                </div>
+            </div>
+        </section>
 
         <h1 class="coming-soon">Coming Soon</h1>
 
@@ -511,32 +750,55 @@
             </div>
         </div>
 
-        <div class="divider"></div>
-
-        <div class="social-icons">
-            <a href="https://youtube.com/@pathleticz" target="_blank" aria-label="YouTube">
-                <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
-            </a>
-            <a href="https://tiktok.com/@pathleticz" target="_blank" aria-label="TikTok">
-                <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-            </a>
-            <a href="https://instagram.com/pathleticz" target="_blank" aria-label="Instagram">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
-            </a>
-            <a href="https://www.linkedin.com/company/pathleticz/" target="_blank" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            </a>
-            <a href="https://x.com/Pathleticz_" target="_blank" aria-label="X">
-                <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-        </div>
-
-        <p class="footer-text">
-            Pathleticz &copy; 2026
-        </p>
     </div>
 
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col footer-brand">
+                <a href="index.html" class="footer-logo"><img src="white-long-logo.png" alt="Pathleticz"></a>
+                <p>Your path into the sports industry starts here.</p>
+                <div class="footer-social">
+                <a href="https://youtube.com/@pathleticz" target="_blank" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+                <a href="https://tiktok.com/@pathleticz" target="_blank" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.960 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.150-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+                <a href="https://instagram.com/pathleticz" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg></a>
+                <a href="https://www.linkedin.com/company/pathleticz/" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+                <a href="https://x.com/Pathleticz_" target="_blank" aria-label="X"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Contact</div>
+                <a href="mailto:play@pathleticz.com">play@pathleticz.com</a>
+                <a href="tel:+13234137764">323.413.7764</a>
+                <span>6709 La Tijera Blvd #480<br>Los Angeles, CA 90056</span>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Explore</div>
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="donate.html">Donate</a>
+            </div>
+        </div>
+        <div class="footer-bottom">&copy; 2026 Pathleticz. A 501(c)(3) nonprofit organization. EIN 42-2273307.</div>
+    </footer>
+
+
     <script>
+        // Nav hamburger toggle (shared across all pages)
+        document.getElementById('navToggle').addEventListener('click', function () {
+            document.getElementById('navLinks').classList.toggle('open');
+        });
+
+
+        (function () {
+            const section = document.getElementById('videoSection');
+            const id = section.dataset.videoId;
+            if (!id) { section.style.display = 'none'; return; }
+            document.getElementById('videoFrame').innerHTML =
+                '<iframe src="https://www.youtube-nocookie.com/embed/' + id +
+                '?cc_load_policy=1&rel=0&modestbranding=1" title="Pathleticz promo video" ' +
+                'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+        })();
+
         const descriptions = {
             parents: 'Parents and guardians who want updates on Pathleticz programs and events for their students.',
             schools: 'Schools, coaches, and community organizations interested in bringing Pathleticz to your students and athletes.',
