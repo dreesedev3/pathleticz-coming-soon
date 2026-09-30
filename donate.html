@@ -9,8 +9,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --light-blue: #349DFF;
-            --dark-blue: #1D3557;
+            --light-blue: #1F6FE5;
+            --text-blue: #5793EC;
+            --dark-blue: #13294B;
             --bg-dark: #0A0E17;
             --text-primary: #FFFFFF;
             --text-secondary: rgba(255, 255, 255, 0.6);
@@ -22,7 +23,7 @@
             position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             background: rgba(10, 14, 23, 0.85);
             backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(52, 157, 255, 0.15);
+            border-bottom: 1px solid rgba(31, 111, 229, 0.15);
         }
         .nav-inner {
             max-width: 1100px; margin: 0 auto; padding: 1rem 2rem;
@@ -38,7 +39,7 @@
             letter-spacing: 0.05em; text-transform: uppercase;
             color: var(--text-secondary); text-decoration: none; transition: color 0.2s ease;
         }
-        .nav-links a:hover, .nav-links a.active { color: var(--light-blue); }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-blue); }
         .nav-links a.nav-donate {
             background: linear-gradient(135deg, var(--dark-blue), var(--light-blue));
             color: #fff; padding: 0.5rem 1.2rem; border-radius: 4px;
@@ -53,7 +54,7 @@
             .nav-links {
                 display: none; position: absolute; top: 100%; left: 0; width: 100%;
                 flex-direction: column; align-items: stretch; gap: 0;
-                background: #0A0E17; border-bottom: 1px solid rgba(52, 157, 255, 0.15);
+                background: #0A0E17; border-bottom: 1px solid rgba(31, 111, 229, 0.15);
             }
             .nav-links.open { display: flex; }
             .nav-links a { width: 100%; padding: 1rem 2rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
@@ -87,12 +88,12 @@
         /* ===== Page layout ===== */
         .page { position: relative; z-index: 1; }
         .band { width: 100%; padding: 4.5rem 0; }
-        .band-alt { background: rgba(29, 53, 87, 0.18); border-top: 1px solid rgba(52, 157, 255, 0.1); border-bottom: 1px solid rgba(52, 157, 255, 0.1); }
+        .band-alt { background: rgba(19, 41, 75, 0.18); border-top: 1px solid rgba(31, 111, 229, 0.1); border-bottom: 1px solid rgba(31, 111, 229, 0.1); }
         .wrap { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
 
         .eyebrow {
             font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.85rem;
-            letter-spacing: 0.15em; text-transform: uppercase; color: var(--light-blue); margin-bottom: 0.8rem;
+            letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-blue); margin-bottom: 0.8rem;
         }
         .display {
             font-family: 'Rajdhani', sans-serif; font-weight: 700; text-transform: uppercase;
@@ -103,13 +104,13 @@
             font-size: clamp(2rem, 4vw, 3rem); line-height: 1; letter-spacing: 0.01em; margin-bottom: 2.5rem;
         }
         .lead { font-size: 1.08rem; line-height: 1.75; color: rgba(255, 255, 255, 0.82); margin-bottom: 1.2rem; }
-        .lead a, .body-text a, .ways-panel li a { color: var(--light-blue); font-weight: 600; text-decoration: none; }
+        .lead a, .body-text a, .ways-panel li a { color: var(--text-blue); font-weight: 600; text-decoration: none; }
         .lead a:hover, .body-text a:hover, .ways-panel li a:hover { text-decoration: underline; }
         .body-text { font-size: 1rem; line-height: 1.75; color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem; }
         .muted { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
 
         .split { display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: center; }
-        .split-rule { border-left: 2px solid rgba(52, 157, 255, 0.35); padding-left: 2.5rem; }
+        .split-rule { border-left: 2px solid rgba(31, 111, 229, 0.35); padding-left: 2.5rem; }
 
         .cta-button {
             display: inline-block; margin-top: 0.8rem;
@@ -118,11 +119,11 @@
             letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none;
             padding: 1rem 2.4rem; border-radius: 4px; transition: all 0.3s ease;
         }
-        .cta-button:hover { box-shadow: 0 0 30px rgba(52, 157, 255, 0.3); transform: translateY(-1px); }
+        .cta-button:hover { box-shadow: 0 0 30px rgba(31, 111, 229, 0.3); transform: translateY(-1px); }
 
         @media (max-width: 800px) {
             .split { grid-template-columns: 1fr; gap: 2rem; }
-            .split-rule { border-left: none; padding-left: 0; border-top: 2px solid rgba(52, 157, 255, 0.35); padding-top: 2rem; }
+            .split-rule { border-left: none; padding-left: 0; border-top: 2px solid rgba(31, 111, 229, 0.35); padding-top: 2rem; }
             .band { padding: 3rem 0; }
         }
 
@@ -132,7 +133,7 @@
         /* ===== About ===== */
         .mv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         .mv-card {
-            background: rgba(29, 53, 87, 0.22); border: 1px solid rgba(52, 157, 255, 0.15);
+            background: rgba(19, 41, 75, 0.22); border: 1px solid rgba(31, 111, 229, 0.15);
             border-radius: 10px; padding: 2.2rem; border-top: 3px solid var(--light-blue);
         }
         .mv-card h3 {
@@ -143,7 +144,7 @@
 
         .founder-card {
             display: grid; grid-template-columns: 220px 1fr; gap: 2.5rem; align-items: center;
-            background: rgba(29, 53, 87, 0.22); border: 1px solid rgba(52, 157, 255, 0.15);
+            background: rgba(19, 41, 75, 0.22); border: 1px solid rgba(31, 111, 229, 0.15);
             border-radius: 10px; padding: 2.5rem;
         }
         .founder-card .avatar { width: 200px; height: 200px; margin: 0; }
@@ -154,24 +155,24 @@
         .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
         .team-grid.single { max-width: 340px; }
         .team-card {
-            background: rgba(29, 53, 87, 0.22); border: 1px solid rgba(52, 157, 255, 0.15);
+            background: rgba(19, 41, 75, 0.22); border: 1px solid rgba(31, 111, 229, 0.15);
             border-radius: 10px; padding: 2rem 1.5rem; text-align: center;
             transition: transform 0.3s ease, border-color 0.3s ease;
         }
-        .team-card:hover { transform: translateY(-4px); border-color: rgba(52, 157, 255, 0.4); }
+        .team-card:hover { transform: translateY(-4px); border-color: rgba(31, 111, 229, 0.4); }
         .avatar {
             position: relative; width: 150px; height: 150px; margin: 0 auto 1.3rem;
             border-radius: 50%; overflow: hidden;
             background: linear-gradient(135deg, var(--dark-blue), var(--light-blue));
             display: flex; align-items: center; justify-content: center;
-            border: 3px solid rgba(52, 157, 255, 0.35);
+            border: 3px solid rgba(31, 111, 229, 0.35);
         }
         .avatar span { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 2.6rem; }
         .avatar img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
         .team-name { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 1.35rem; margin-bottom: 0.35rem; }
         .team-role {
             font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.82rem;
-            letter-spacing: 0.1em; text-transform: uppercase; color: var(--light-blue); margin-bottom: 0.5rem;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-blue); margin-bottom: 0.5rem;
         }
         .team-job { font-size: 0.92rem; line-height: 1.5; color: rgba(255, 255, 255, 0.65); }
 
@@ -185,7 +186,7 @@
             padding: 0.7rem 0 0.7rem 1rem; border-left: 3px solid transparent; transition: all 0.2s ease;
         }
         .ways-tab:hover { color: #fff; }
-        .ways-tab.active { color: var(--light-blue); border-left-color: var(--light-blue); }
+        .ways-tab.active { color: var(--text-blue); border-left-color: var(--light-blue); }
         .ways-panel { display: none; }
         .ways-panel.active { display: block; animation: panel-in 0.35s ease; }
         @keyframes panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
@@ -193,7 +194,7 @@
         .ways-panel ol { margin: 0.5rem 0 1.2rem 1.3rem; }
         .ways-panel li { font-size: 1rem; line-height: 1.7; color: rgba(255, 255, 255, 0.8); margin-bottom: 0.4rem; }
         .address-block {
-            background: rgba(29, 53, 87, 0.22); border: 1px solid rgba(52, 157, 255, 0.15);
+            background: rgba(19, 41, 75, 0.22); border: 1px solid rgba(31, 111, 229, 0.15);
             border-radius: 8px; padding: 1.3rem 1.5rem; margin: 0.5rem 0 1rem; font-size: 1.05rem; line-height: 1.7;
         }
         .nowrap { white-space: nowrap; }
@@ -218,7 +219,7 @@
             width: 100%;
             align-self: stretch;
             margin-top: 4rem;
-            border-top: 1px solid rgba(52, 157, 255, 0.15);
+            border-top: 1px solid rgba(31, 111, 229, 0.15);
             background: rgba(10, 14, 23, 0.6);
             text-align: left;
         }
@@ -244,7 +245,7 @@
             font-size: 0.85rem;
             letter-spacing: 0.1em;
             text-transform: uppercase;
-            color: var(--light-blue);
+            color: var(--text-blue);
             margin-bottom: 0.3rem;
         }
         .footer-col a, .footer-col span {
@@ -253,7 +254,7 @@
             font-size: 0.92rem;
             line-height: 1.5;
         }
-        .footer-col a:hover { color: var(--light-blue); }
+        .footer-col a:hover { color: var(--text-blue); }
         .footer-social { display: flex; gap: 1rem; margin-top: 0.4rem; }
         .footer-social a { color: rgba(255, 255, 255, 0.5); display: flex; }
         .footer-social svg { width: 20px; height: 20px; fill: currentColor; }
@@ -305,8 +306,8 @@
                     <p class="lead">Every gift puts a student in the game: face to face with the professionals who run the sports industry, building the skills and portfolio to compete for a place in it.</p>
                     <p class="lead">When you donate to Pathleticz, you support the materials, prizes, food, and transportation that keep programs accessible for students and families.</p>
                     <p class="lead">Pathleticz is a registered 501(c)(3) nonprofit (EIN <span class="nowrap">42-2273307</span>). Gifts are tax-deductible to the extent allowed by law. Questions about giving? Reach us at <a href="mailto:give@pathleticz.com">give@pathleticz.com</a>.</p>
-                    <!-- TODO: point this button to the Elavon payment link once it's set up -->
-                    <a href="#ways" class="cta-button">Donate</a>
+                    <!-- Online donations: Elavon Converge hosted payment page -->
+                    <a href="https://www.convergepay.com/hosted-payments?ssl_txn_auth_token=rPHiSPAyTMaeLUXRzqPTsAAAAaDyoAGG" class="cta-button" target="_blank" rel="noopener">Donate</a>
                 </div>
             </div>
         </section>
